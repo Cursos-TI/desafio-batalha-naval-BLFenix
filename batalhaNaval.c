@@ -4,7 +4,47 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
-int main() {
+void zerarTabuleiro(int tabuleiro[10][10])
+{
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            tabuleiro[i][j] = 0;
+        }
+    }
+}
+
+void mostrarTabuleiro(int tabuleiro[10][10])
+{
+    printf("\n================= TABULEIRO ================\n\n");
+    printf(" X | A | B | C | D | E | F | G | H | I | J |\n");
+    for (int i = 0, I = 1; i < 10; i++, I++)
+    {
+        (i + 1 == 10) ? printf("%d ", I) : printf(" %d ", I);
+        for (int j = 0; j < 10; j++)
+        {
+            if (j == 0)
+            {
+                printf("| %d |", tabuleiro[i][j]);
+            }
+            else
+            {
+                printf(" %d |", tabuleiro[i][j]);
+            }
+        }
+        printf("\n");
+    }
+    printf("\n\n");
+}
+
+int main()
+{
+    int tabuleiro[10][10];
+    zerarTabuleiro(tabuleiro);
+
+    mostrarTabuleiro(tabuleiro);
+
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
@@ -25,7 +65,7 @@ int main() {
     // 0 0 1 0 0
     // 0 1 1 1 0
     // 1 1 1 1 1
-    
+
     // Exemplo para habilidade em octaedro:
     // 0 0 1 0 0
     // 0 1 1 1 0
