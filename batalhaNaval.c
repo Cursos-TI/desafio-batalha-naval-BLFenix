@@ -1,28 +1,31 @@
 #include <stdio.h>
 
+#define TAB_LINHA 10
+#define TAB_COLUNA 10
+
 // Desafio Batalha Naval - MateCheck
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
-void zerarTabuleiro(int tabuleiro[10][10])
+void zerarTabuleiro(int tabuleiro[TAB_LINHA][TAB_COLUNA])
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < TAB_LINHA; i++)
     {
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < TAB_COLUNA; j++)
         {
             tabuleiro[i][j] = 0;
         }
     }
 }
 
-void mostrarTabuleiro(int tabuleiro[10][10])
+void mostrarTabuleiro(int tabuleiro[TAB_LINHA][TAB_COLUNA])
 {
     printf("\n================= TABULEIRO ================\n\n");
-    printf(" X | A | B | C | D | E | F | G | H | I | J |\n");
-    for (int i = 0, I = 1; i < 10; i++, I++)
+    printf(" O | A | B | C | D | E | F | G | H | I | J |\n");
+    for (int i = 0; i < TAB_LINHA; i++)
     {
-        (i + 1 == 10) ? printf("%d ", I) : printf(" %d ", I);
-        for (int j = 0; j < 10; j++)
+        (i + 1 == TAB_LINHA) ? printf("%d ", i + 1) : printf(" %d ", i + 1);
+        for (int j = 0; j < TAB_COLUNA; j++)
         {
             if (j == 0)
             {
@@ -40,7 +43,7 @@ void mostrarTabuleiro(int tabuleiro[10][10])
 
 int main()
 {
-    int tabuleiro[10][10];
+    int tabuleiro[TAB_LINHA][TAB_COLUNA];
     zerarTabuleiro(tabuleiro);
 
     mostrarTabuleiro(tabuleiro);
