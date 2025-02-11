@@ -2,20 +2,26 @@
 
 #define TAB_LINHA 10
 #define TAB_COLUNA 10
+#define POD_LINHA 3
+#define POD_COLUNA 5
+#define LINHA_ADD_POD 6  // Linha que o poder será inserido
+#define COLUNA_ADD_POD 4 // Coluna que o poder será inserido
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
-
-void zerarTabuleiro(int tabuleiro[TAB_LINHA][TAB_COLUNA])
+int receberItemMenu(int MIN, int MAX)
 {
-    for (int i = 0; i < TAB_LINHA; i++)
+    int item = 0;
+    do
     {
-        for (int j = 0; j < TAB_COLUNA; j++)
+        printf("Digite a opção desejada: ");
+        scanf(" %d", &item);
+
+        if (item < MIN || item > MAX)
         {
-            tabuleiro[i][j] = 0;
+            printf("\nRespeite os limites! (%d - %d)\n", MIN, MAX);
         }
-    }
+
+    } while (item < MIN || item > MAX);
+    return item;
 }
 
 void mostrarTabuleiro(int tabuleiro[TAB_LINHA][TAB_COLUNA])
@@ -24,7 +30,7 @@ void mostrarTabuleiro(int tabuleiro[TAB_LINHA][TAB_COLUNA])
     printf(" O | A | B | C | D | E | F | G | H | I | J |\n");
     for (int i = 0; i < TAB_LINHA; i++)
     {
-        (i + 1 == TAB_LINHA) ? printf("%d ", i + 1) : printf(" %d ", i + 1);
+        printf(" %d ", i);
         for (int j = 0; j < TAB_COLUNA; j++)
         {
             if (j == 0)
@@ -41,10 +47,125 @@ void mostrarTabuleiro(int tabuleiro[TAB_LINHA][TAB_COLUNA])
     printf("\n\n");
 }
 
+void addPodCone(int tabuleiro[TAB_LINHA][TAB_COLUNA], int poder[POD_LINHA][POD_COLUNA])
+{
+    for (int i = 0; i < POD_LINHA; i++)
+    {
+        for (int j = 0; j < POD_COLUNA; j++)
+        {
+            if (poder[i][j] != 0)
+            {
+                tabuleiro[LINHA_ADD_POD + i][COLUNA_ADD_POD + j] = poder[i][j];
+            }
+        }
+    }
+}
+
+void addPodLosango(int tabuleiro[TAB_LINHA][TAB_COLUNA], int poder[POD_LINHA][POD_COLUNA])
+{
+    for (int i = 0; i < POD_LINHA; i++)
+    {
+        for (int j = 0; j < POD_COLUNA; j++)
+        {
+            if (poder[i][j] != 0)
+            {
+                tabuleiro[LINHA_ADD_POD + i][COLUNA_ADD_POD + j] = poder[i][j];
+            }
+        }
+    }
+}
+
+void addPodCruz(int tabuleiro[TAB_LINHA][TAB_COLUNA], int poder[POD_LINHA][POD_COLUNA])
+{
+    for (int i = 0; i < POD_LINHA; i++)
+    {
+        for (int j = 0; j < POD_COLUNA; j++)
+        {
+            if (poder[i][j] != 0)
+            {
+                tabuleiro[LINHA_ADD_POD + i][COLUNA_ADD_POD + j] = poder[i][j];
+            }
+        }
+    }
+}
+
 int main()
 {
-    int tabuleiro[TAB_LINHA][TAB_COLUNA];
-    zerarTabuleiro(tabuleiro);
+    int tabuleiro[TAB_LINHA][TAB_COLUNA] = {};
+    int poder_Cone[POD_LINHA][POD_COLUNA] = {{0, 0, 1, 0, 0}, {0, 1, 1, 1, 0}, {1, 1, 1, 1, 1}};    // Matriz 3x5 com uma pirâmide preenchida de "1"s e o restante "0"s
+    int poder_Losango[POD_LINHA][POD_COLUNA] = {{0, 0, 1, 0, 0}, {0, 1, 1, 1, 0}, {0, 0, 1, 0, 0}}; // Matriz 3x5 com um losango preenchido de "1"s e o restante "0"s
+    int poder_Cruz[POD_LINHA][POD_COLUNA] = {{0, 0, 1, 0, 0}, {1, 1, 1, 1, 1}, {0, 0, 1, 0, 0}};    // Matriz 3x5 com uma cruz de "1"s e o restante "0"s
+    int menu, poderEscolhido;
+
+    printf("\n====== MENU: ======\n");
+    printf("1 - Ver o tabuleiro\n");
+    printf("2 - Inserir navios\n");
+    printf("3 - Ativar poder no tabuleiro\n\n");
+
+    menu = receberItemMenu(1, 3);
+
+    switch (menu)
+    {
+    case 1:
+        printf("\nVEJA O TABULEIRO:\n\n");
+        mostrarTabuleiro(tabuleiro);
+        break;
+
+    case 2:
+        // Inserindo navio na horizontal:
+
+        tabuleiro[6][3] = 3;
+        tabuleiro[6][4] = 3;
+        tabuleiro[6][5] = 3;
+
+        // Inserindo navio na vertical:
+
+        tabuleiro[1][3] = 3;
+        tabuleiro[2][3] = 3;
+        tabuleiro[3][3] = 3;
+
+        // Inserindo navio na diagonal:
+
+        tabuleiro[5][9] = 3;
+        tabuleiro[4][8] = 3;
+        tabuleiro[3][7] = 3;
+
+        // Inserindo navio na diagonal:
+
+        tabuleiro[1][8] = 3;
+        tabuleiro[2][7] = 3;
+        tabuleiro[3][6] = 3;
+        tabuleiro[4][5] = 3;
+
+        mostrarTabuleiro(tabuleiro);
+        break;
+    case 3:
+        printf("\n==== MENU PODERES: ====\n");
+        printf("1 - Poder cone\n");
+        printf("2 - Poder losango\n");
+        printf("3 - Poder cruz\n\n");
+
+        poderEscolhido = receberItemMenu(1, 3);
+
+        switch (poderEscolhido)
+        {
+        case 1:
+            addPodCone(tabuleiro, poder_Cone);
+            break;
+        case 2:
+            addPodLosango(tabuleiro, poder_Losango);
+            break;
+        case 3:
+            addPodCruz(tabuleiro, poder_Cruz);
+            break;
+
+        default:
+            break;
+        }
+        break;
+    default:
+        break;
+    }
 
     mostrarTabuleiro(tabuleiro);
 
